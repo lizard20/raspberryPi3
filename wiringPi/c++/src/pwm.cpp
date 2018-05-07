@@ -4,6 +4,7 @@
 //			using wiringPi library
 //			frequency:  20 KHz
 //			duty cycle: 40 %
+//			Execute as root!
 // Author: Aldo Nunez
 //
 
