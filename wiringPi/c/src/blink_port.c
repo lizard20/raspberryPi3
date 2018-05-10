@@ -1,7 +1,7 @@
 /*
-** Name: 	blink_port
-** Purpose: Blink one of the 26 valid ports
-** Author: 	Aldo Nunez
+** Name:    blink_port
+** Purpose: Blinks one of the 26 valid ports
+** Author:  Aldo Nunez
 */
 
 #include <stdio.h>

@@ -1,8 +1,9 @@
 /**
 ** Program: blink_2.c
-** Purpose: Blink led connected to Pin 5
-** 			using wiringPi library 
-** 			with controlled ending
+** Purpose: Blinks led connected to Pin 5
+**          using wiringPi library.
+**          Pressing "Ctrl + c" it ends
+**          in controlled manner.
 ** Author: Aldo Nunez
 **/
 

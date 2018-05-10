@@ -1,8 +1,8 @@
 /**
 ** Program: blink.c
-** Purpose:	Blink led connected to Pin 5,
-** 			using wiringPi library
-** Author:	Aldo Nunez
+** Purpose: Blinks led connected to Pin 5,
+**          using wiringPi library
+** Author:  Aldo Nunez
 **/
 
 #include <stdio.h>

@@ -1,11 +1,11 @@
 /**
-** Program:	pwm.c
-** Purpose:	PWM output on Pin 35
-**			using wiringPi library.
-**			frequency:  20 KHz 
-**			duty cycle: 40 %
-**			Execute as root!
-** Author: Aldo Nunez
+** Program: pwm.c
+** Purpose: PWM output on Pin 35
+**          using wiringPi library.
+**          frequency:  20 KHz
+**          duty cycle: 40 %
+**          Execute as root!
+** Author:  Aldo Nunez
 **/
 
 #include <stdio.h>
