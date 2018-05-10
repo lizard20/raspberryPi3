@@ -26,53 +26,53 @@ void manage_signal ( int );
 int
 main ( void )
 {
-	/* setup */
+    /* setup */
     if ( wiringPiSetup () )
-	{
-		fprintf ( stderr,  "Failing to setup wiringPi\n" );
-		return 1;
-	}
+    {
+        fprintf ( stderr,  "Failing to setup wiringPi\n" );
+        return 1;
+    }
 
-	/* wPi port 9 corresponds to PIN 5 */
-	const int WPI_PORT = 9;
+    /* wPi port 9 corresponds to PIN 5 */
+    const int WPI_PORT = 9;
 
-	/* Delay in milliseconds */
+    /* Delay in milliseconds */
     const int T = 50; 	
-	
-	/* set the port as output */
+
+    /* set the port as output */
     pinMode ( WPI_PORT, OUTPUT );
 
-	unsigned int state = HIGH;
+    unsigned int state = HIGH;
 
-	signal ( SIGINT, manage_signal );
+    signal ( SIGINT, manage_signal );
 
-	puts ( "blinking Pin 5" );
-	puts ( "To finish enter: \'Ctrl + c\'" );
-	while ( flag )
+    puts ( "blinking Pin 5" );
+    puts ( "To finish enter: \'Ctrl + c\'" );
+    while ( flag )
     {
-		/* blink */
+        /* blink */
         digitalWrite ( WPI_PORT, state );
 
-		/* waiting */
+        /* waiting */
         delay ( T );
-	
-		/* switch state */
-		state = !state;
+
+        /* switch state */
+        state = !state;
     } /* end of while */
 
     digitalWrite ( WPI_PORT, 0 );
-	
+
     return 0;
 } /* end of main */
 
 void
 manage_signal ( int sig )
 {
-	if ( sig == SIGINT )
-	{
-		flag = 0;
-	}
-	printf ("\nprogram is closing ... \n" );
-	return;
+    if ( sig == SIGINT )
+    {
+        flag = 0;
+    }
+    printf ("\nprogram is closing ... \n" );
+    return;
 }
 

@@ -72,28 +72,28 @@ void print_message ( char* );
 int
 main ( int argc, char* argv [] )
 {
-	char* program_name = argv [ 0 ];
-	
-	if ( argc != 2 )
-	{
-		print_message (  program_name );
-		return 1;
-	}
-	
-	write_port ( argv [ 1 ] );
+    char* program_name = argv [ 0 ];
 
-	return 0;
+    if ( argc != 2 )
+    {
+        print_message (  program_name );
+        return 1;
+    }
+
+    write_port ( argv [ 1 ] );
+
+    return 0;
 }
 /* end of main */
 
 void
 manage_signal ( int sig )
 {
-	if ( sig == SIGINT )
-	{
-		flag = 0;
-	}
-	printf ("\nprogram is closing ... \n" );
+    if ( sig == SIGINT )
+    {
+        flag = 0;
+    }
+    printf ("\nprogram is closing ... \n" );
 }
 
 bool
@@ -113,39 +113,39 @@ is_number ( char* str )
 bool
 write_port ( char* port )
 {
-	if ( !is_number ( port ) )
-	{
-		fprintf ( stderr, "Port must be an integer and positive number\n\n" );
-		return false;	
-	}
+    if ( !is_number ( port ) )
+    {
+        fprintf ( stderr, "Port must be an integer and positive number\n\n" );
+        return false;	
+    }
 
-	int  wpi_port = check_port ( atoi ( port ) );
-	if ( wpi_port == -1 )
-	{
-		fprintf ( stderr, "Pin number is not valid!\n\n" );
-		return false;	
-	}
+    int  wpi_port = check_port ( atoi ( port ) );
+    if ( wpi_port == -1 )
+    {
+        fprintf ( stderr, "Pin number is not valid!\n\n" );
+        return false;	
+    }
 
-	const int T = 50;
-	
-	/* setup */
-	if ( wiringPiSetup () )
-	{
-		fprintf ( stderr,  "Failing to setup wiringPi\n" );
-		return 1;
-	}
+    const int T = 50;
+
+    /* setup */
+    if ( wiringPiSetup () )
+    {
+        fprintf ( stderr,  "Failing to setup wiringPi\n" );
+        return 1;
+    }
 
     /* set the port as output*/
     pinMode ( wpi_port, OUTPUT );
-	
-	printf ( "blinking port %s ...\n", port );
 
-	signal ( SIGINT, manage_signal );
-	printf ( "To finish type: \"Ctrl + c\" \n" );
+    printf ( "blinking port %s ...\n", port );
 
-	uint8_t state = 0;
+    signal ( SIGINT, manage_signal );
+    printf ( "To finish type: \"Ctrl + c\" \n" );
 
-	while ( flag  )
+    uint8_t state = 0;
+
+    while ( flag  )
     {
         /* blink */
         digitalWrite ( wpi_port, state = !state );
@@ -155,61 +155,61 @@ write_port ( char* port )
     }
 
     digitalWrite ( wpi_port, 0 );
-	return true;
+    return true;
 }
 
 int8_t
 check_port ( int pin )
 {
-	/* number of ports */
-	const uint8_t N = 41;
+    /* number of ports */
+    const uint8_t N = 41;
 
-	int8_t* ports = ( int8_t* ) malloc ( N * sizeof ( int8_t ) );
+    int8_t* ports = ( int8_t* ) malloc ( N * sizeof ( int8_t ) );
 
-	/* initialize ports array */
-	uint8_t i;
-	for ( i = 0; i <= N; i++ )
-	{
-		ports [ i ] = -1;
-	}
+    /* initialize ports array */
+    uint8_t i;
+    for ( i = 0; i <= N; i++ )
+    {
+        ports [ i ] = -1;
+    }
 
-	/* Valid physical pins */
-	/* Phys Pin - wirinPi PIN */
-	ports [ 3 ]  = 8;
-	ports [ 5 ]  = 9;
-	ports [ 7 ]  = 7;
-	ports [ 8 ]  = 15;
-	ports [ 10 ] = 16;
-	ports [ 11 ] = 0;
-	ports [ 12 ] = 1;
-	ports [ 13 ] = 2;
-	ports [ 15 ] = 3;
-	ports [ 16 ] = 4;
-	ports [ 18 ] = 5;
-	ports [ 19 ] = 12;
-	ports [ 21 ] = 13;
-	ports [ 22 ] = 6;
-	ports [ 23 ] = 14;
-	ports [ 24 ] = 10;
-	ports [ 26 ] = 11;
-	ports [ 29 ] = 21;
-	ports [ 31 ] = 22;
-	ports [ 32 ] = 26;
-	ports [ 33 ] = 23;
-	ports [ 35 ] = 24;
-	ports [ 36 ] = 27;
-	ports [ 37 ] = 25;
-	ports [ 38 ] = 28;
-	ports [ 40 ] = 29;
+    /* Valid physical pins */
+    /* Phys Pin - wirinPi PIN */
+    ports [ 3 ]  = 8;
+    ports [ 5 ]  = 9;
+    ports [ 7 ]  = 7;
+    ports [ 8 ]  = 15;
+    ports [ 10 ] = 16;
+    ports [ 11 ] = 0;
+    ports [ 12 ] = 1;
+    ports [ 13 ] = 2;
+    ports [ 15 ] = 3;
+    ports [ 16 ] = 4;
+    ports [ 18 ] = 5;
+    ports [ 19 ] = 12;
+    ports [ 21 ] = 13;
+    ports [ 22 ] = 6;
+    ports [ 23 ] = 14;
+    ports [ 24 ] = 10;
+    ports [ 26 ] = 11;
+    ports [ 29 ] = 21;
+    ports [ 31 ] = 22;
+    ports [ 32 ] = 26;
+    ports [ 33 ] = 23;
+    ports [ 35 ] = 24;
+    ports [ 36 ] = 27;
+    ports [ 37 ] = 25;
+    ports [ 38 ] = 28;
+    ports [ 40 ] = 29;
 
-	return ( int ) ports [ pin ];
+    return ( int ) ports [ pin ];
 }
 
 void
 print_message (  char* file )
 {
-	fprintf ( stdout, "%s: missing port \n\n", file );
-	fprintf ( stdout, "Usage: %s PIN\n", file );
-	fprintf ( stdout, "PIN - Pin number\n" );
+    fprintf ( stdout, "%s: missing port \n\n", file );
+    fprintf ( stdout, "Usage: %s PIN\n", file );
+    fprintf ( stdout, "PIN - Pin number\n" );
 }
 

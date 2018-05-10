@@ -11,22 +11,22 @@
 int 
 main ( void )
 {
-	const int PORT = 7;
+    const int PORT = 7;
 
-	if ( wiringPiSetup () )
-	{
-		fprintf ( stderr, "Failing to setup wiringPi\n" );
-		return 1;
-	}
+    if ( wiringPiSetup () )
+    {
+        fprintf ( stderr, "Failing to setup wiringPi\n" );
+        return 1;
+    }
 
-	/* set the port as input */
+    /* set the port as input */
     pinMode ( PORT, INPUT );
 
     /* read input value */
-	int value = digitalRead ( PORT );
+    int value = digitalRead ( PORT );
 
-	printf ( "Input port %d: %d\n", PORT, value );
+    printf ( "Input port %d: %d\n", PORT, value );
 
-	return 0;
+    return 0;
 }
 
