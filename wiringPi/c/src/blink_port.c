@@ -30,12 +30,14 @@ void manage_signal ( int );
 **           a valid port. Returns a valid
 **           port number, otherwise it returns
 **           zero.
-** Input:    port number
+** Input:    - port number
+**           - pointer to array
+**           - size array
 ** Output:   8 bits integer
 **           returns a valid port number.
 **           returns -1 if it's not a valid port number
 */
-int8_t check_port ( int );
+int8_t check_port ( int, int8_t*, const uint8_t );
 
 /*
 ** Function: is_number
@@ -119,7 +121,12 @@ write_port ( char* port )
         return false;	
     }
 
-    int  wpi_port = check_port ( atoi ( port ) );
+    /* Allocates room to the ports array  */
+    /* number of ports plus one */
+    const uint8_t N = 41;
+    int8_t* ports = ( int8_t* ) malloc ( N * sizeof ( int8_t ) );
+
+    int  wpi_port = check_port ( atoi ( port ), ports, N );
     if ( wpi_port == -1 )
     {
         fprintf ( stderr, "Pin number is not valid!\n\n" );
@@ -155,22 +162,19 @@ write_port ( char* port )
     }
 
     digitalWrite ( wpi_port, 0 );
+    free ( ports );
+
     return true;
 }
 
 int8_t
-check_port ( int pin )
+check_port ( int pin, int8_t* ports, const uint8_t N  )
 {
-    /* number of ports plus one */
-    const uint8_t N = 41;
-
-    int8_t* ports = ( int8_t* ) malloc ( N * sizeof ( int8_t ) );
-
     /* initialize ports array */
     uint8_t i;
-    for ( i = 0; i <= N; i++ )
+    for ( i = 0; i < N; i++ )
     {
-        ports [ i ] = -1;
+        *( ports + i ) = -1;
     }
 
     /* Valid physical pins */
