@@ -125,6 +125,11 @@ write_port ( char* port )
     /* number of ports plus one */
     const uint8_t N = 41;
     int8_t* ports = ( int8_t* ) malloc ( N * sizeof ( int8_t ) );
+    if ( ports == NULL )
+    {
+        fprintf ( stderr, "Memory allocation failed\n\n" );
+        return false;	
+    }
 
     int  wpi_port = check_port ( atoi ( port ), ports, N );
     if ( wpi_port == -1 )
