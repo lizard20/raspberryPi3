@@ -1,8 +1,8 @@
 //
 // Program: digital_input.cpp
-// Description: Read a digital input and display its value
-// 				using wiringPi library
-// Author: Aldo Nunez
+// Purpose: Reads a digital input and displays its value
+//          using wiringPi library
+// Author:  Aldo Nunez
 //
 
 #include <iostream>
@@ -10,25 +10,25 @@
 
 using namespace std;
 
-int 
+int
 main ( void )
 {
-	const int PORT = 7;
+    const int PORT = 7;
 
-	if ( wiringPiSetup () )
-	{
-		cerr <<  "Failing to setup wiringPi" << endl;
-		return 1;
-	}
+    if ( wiringPiSetup () )
+    {
+        cerr <<  "Failing to setup wiringPi" << endl;
+        return 1;
+    }
 
-	/* set the port as input */
+    // sets the port as input
     pinMode ( PORT, INPUT );
 
-    /* read input value */
-	int value = digitalRead ( PORT );
+    // reads input value
+    int value = digitalRead ( PORT );
 
-	cout << "Input port " <<  PORT << ": " << value << endl;
+    cout << "Input port " <<  PORT << ": " << value << endl;
 
-	return 0;
+    return 0;
 }
 

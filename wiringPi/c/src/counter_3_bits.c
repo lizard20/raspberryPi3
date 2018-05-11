@@ -1,9 +1,9 @@
 /**
 ** Program: counter_3_bits.c
-** Description: 3 bits counter. 0 -> 7 or
-** 				000 -> 111
-** 				Ouptput pins: 11, 13 ,15
-** Author: Aldo Nunez
+** Purpose: 3 bits counter. 0 -> 7 or
+**          000 -> 111
+**          Ouptput pins: 11, 13 ,15
+** Author:  Aldo Nunez
 **/
 
 #include <stdio.h>
@@ -14,13 +14,13 @@
 volatile sig_atomic_t  flag = 1;
 
 /*
-** Name: manage_signal
-** Input: Integer
-** Output: None
-** Description: Catch the signal interrupt,
-** 				'Ctrl + c' signal  generated
-** 				by the user  and  modify
-** 				flag variable
+** Name:    manage_signal
+** Purpose: Catchs the signal interrupt,
+**          'Ctrl + c' signal  generated
+**          by the user  and  modifies
+**          flag variable
+** Input:   Integer
+** Output:  None
 */
 void manage_signal ( int );
 
@@ -49,7 +49,7 @@ main ( void )
     const uint8_t BIT1 = 2;
     const uint8_t BIT2 = 3;
 
-    /* set ports as ouputs  */
+    /* sets ports as ouputs  */
     pinMode ( BIT0, OUTPUT );
     pinMode ( BIT1, OUTPUT );
     pinMode ( BIT2, OUTPUT );
@@ -65,13 +65,13 @@ main ( void )
     while ( flag )
     {
         printf ( "decimal %d is %d%d%d in binary\n", i, ARR2 [ i ], ARR1 [ i ], ARR0 [ i ] );
-        /* write to ports */
+        /* writes  ports */
         digitalWrite ( BIT0, ARR0 [ i ] );
         digitalWrite ( BIT1, ARR1 [ i ] );
         digitalWrite ( BIT2, ARR2 [ i ] );
 
         ++i;
-        /* restart counter*/
+        /* restarts counter*/
         if ( i > MAX_COUNT )
         {
             i = 0;
@@ -79,13 +79,13 @@ main ( void )
         delay ( T );
     } /* end of while */
 
-    /* turn off outputs */
+    /* turns off outputs */
     digitalWrite ( BIT0, LOW );
     digitalWrite ( BIT1, LOW );
     digitalWrite ( BIT2, LOW );
 
     return 0;
-}
+} /* end of main */
 
 void
 manage_signal ( int sig )

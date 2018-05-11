@@ -2,8 +2,8 @@
 ** Program: blink_2.c
 ** Purpose: Blinks led connected to Pin 5
 **          using wiringPi library.
-**          Pressing "Ctrl + c" it ends
-**          in controlled manner.
+**          Pressing "Ctrl + c" this program
+**          ends in controlled manner.
 ** Author: Aldo Nunez
 **/
 
@@ -14,13 +14,13 @@
 volatile sig_atomic_t  flag = 1;
 
 /*
-** Name: 	manage_signal
-** Purpose: Catch the signal interrupt,
-** 				'Ctrl + c' signal  generated
-** 				by the user  and  modify
-** 				flag variable
-** Input:	Integer
-** Output: 	None
+** Name:    manage_signal
+** Purpose: Catchs the signal interrupt,
+**          'Ctrl + c' signal  generated
+**          by the user  and  modifies
+**          the flag variable
+** Input:   Integer
+** Output:  None
 */
 void manage_signal ( int );
 
@@ -37,10 +37,10 @@ main ( void )
     /* wPi port 9 corresponds to PIN 5 */
     const int WPI_PORT = 9;
 
-    /* Delay in milliseconds */
+    /* delay in milliseconds */
     const int T = 50; 	
 
-    /* set the port as output */
+    /* sets the port as output */
     pinMode ( WPI_PORT, OUTPUT );
 
     unsigned int state = HIGH;

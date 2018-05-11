@@ -1,10 +1,10 @@
 /**
 ** Program: pwm.c
-** Purpose: PWM output on Pin 35
+** Purpose: Generates a PWM signal on Pin 35
 **          using wiringPi library.
 **          frequency:  20 KHz
 **          duty cycle: 40 %
-**          Execute as root!
+**          Executes as root!
 ** Author:  Aldo Nunez
 **/
 
@@ -36,11 +36,11 @@ main ( void )
 
     /****** setting PWM parameters ******/
 
-    /* set port to ALT MODE-5*/
+    /* sets port to ALT MODE-5*/
     const int FSEL_ALT5 = 0b010;
     pinModeAlt (PWM_PORT, FSEL_ALT5 );
 
-    /* set Mark/Space mode */
+    /* sets Mark/Space mode */
     pwmSetMode ( PWM_MODE_MS );
 
     /* frequency = 19.2e6 / ( DIVISOR x RANGE ) */
@@ -49,7 +49,7 @@ main ( void )
 
     /****************************************/
 
-    /* generate PWM at a determined duty cycle */
+    /* generates PWM at a determined duty cycle */
     pwmWrite ( PWM_PORT, DUTY_CYCLE );
 
     const float F_BASE = 19.2e6; 
@@ -60,7 +60,7 @@ main ( void )
 
     printf ( "\nTo finish, press \'Enter\'" );
     getchar ();
-    /* turn off pwm output*/
+    /* turns off pwm output*/
     pwmWrite ( PWM_PORT, 0 );
 
     return 0;

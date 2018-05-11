@@ -21,10 +21,10 @@ main ( void )
     /* wPi 9 corresponds to Pin 5 */
     const int WPI_PORT = 9;
 
-    /* Delay in milliseconds */
+    /* delay in milliseconds */
     const int T = 50; 	
 
-    /* set the port as output */
+    /* sets the port as output */
     pinMode ( WPI_PORT, OUTPUT );
 
     /* initial state */

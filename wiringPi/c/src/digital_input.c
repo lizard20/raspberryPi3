@@ -1,8 +1,8 @@
 /**
 ** Program: digital_input.c
-** Description: Read a digital input and display its value
-** 				using wiringPi library
-** Author: Aldo Nunez
+** Purpose: Reads a digital input and displays its value
+**          using wiringPi library
+** Author:  Aldo Nunez
 **/
 
 #include <stdio.h>
@@ -19,10 +19,10 @@ main ( void )
         return 1;
     }
 
-    /* set the port as input */
+    /* sets the port as input */
     pinMode ( PORT, INPUT );
 
-    /* read input value */
+    /* reads input value */
     int value = digitalRead ( PORT );
 
     printf ( "Input port %d: %d\n", PORT, value );
