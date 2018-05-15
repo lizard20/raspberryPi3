@@ -29,7 +29,7 @@ void manage_signal ( int );
 //           a valid port. Returns a valid
 //           port number, otherwise it returns
 //           zero.
-// Input:    -port number
+// Input:    - port number
 //           - pointer to array
 //           - size array
 // Output:   8 bits integer
@@ -109,19 +109,20 @@ is_number ( char* str )
 }
 
 bool
-write_port ( char* port )
+write_port ( char* phys_port )
 {
-    if ( !is_number ( port ) )
+    if ( !is_number ( phys_port ) )
     {
         cerr <<  "Port must be an integer and positive number\n\n";
         return false;	
     }
+
     // Allocates room to the ports array
     //  number of ports plus one 
     const uint8_t N = 41;
-    int8_t* ports = new int8_t [ N ];
+    int8_t* wipi_ports = new int8_t [ N ];
 
-    int  wpi_port = check_port ( atoi ( port ), ports, N );
+    int  wpi_port = check_port ( atoi ( phys_port ), wipi_ports, N );
     if ( wpi_port == -1 )
     {
         cerr <<  "Pin number is not valid!\n\n";
@@ -140,7 +141,7 @@ write_port ( char* port )
     // sets the port as output
     pinMode ( wpi_port, OUTPUT );
 
-    cout <<  "blinking port %s ..." << port << endl;
+    cout <<  "blinking port %s ..." << phys_port << endl;
 
     signal ( SIGINT, manage_signal );
     cout << "To finish type: \"Ctrl + c\"" << endl;
@@ -157,49 +158,49 @@ write_port ( char* port )
     }
 
     digitalWrite ( wpi_port, 0 );
-    delete ( ports );
+    delete ( wipi_ports );
     return true;
 }
 
 int8_t
-check_port ( int pin, int8_t* ports, const uint8_t N )
+check_port ( int phys_port, int8_t* wipi_ports, const uint8_t N )
 {
     // initialize ports array 
     for ( uint8_t i = 0; i < N; i++ )
     {
-        ports [ i ] = -1;
+        wipi_ports [ i ] = -1;
     }
 
     // Valid physical pins 
-    // Phys Pin - wirinPi PIN 
-    ports [ 3 ]  = 8;
-    ports [ 5 ]  = 9;
-    ports [ 7 ]  = 7;
-    ports [ 8 ]  = 15;
-    ports [ 10 ] = 16;
-    ports [ 11 ] = 0;
-    ports [ 12 ] = 1;
-    ports [ 13 ] = 2;
-    ports [ 15 ] = 3;
-    ports [ 16 ] = 4;
-    ports [ 18 ] = 5;
-    ports [ 19 ] = 12;
-    ports [ 21 ] = 13;
-    ports [ 22 ] = 6;
-    ports [ 23 ] = 14;
-    ports [ 24 ] = 10;
-    ports [ 26 ] = 11;
-    ports [ 29 ] = 21;
-    ports [ 31 ] = 22;
-    ports [ 32 ] = 26;
-    ports [ 33 ] = 23;
-    ports [ 35 ] = 24;
-    ports [ 36 ] = 27;
-    ports [ 37 ] = 25;
-    ports [ 38 ] = 28;
-    ports [ 40 ] = 29;
+    // [ Phys Pin ] - wirinPi PIN 
+    wipi_ports [ 3 ]  = 8;
+    wipi_ports [ 5 ]  = 9;
+    wipi_ports [ 7 ]  = 7;
+    wipi_ports [ 8 ]  = 15;
+    wipi_ports [ 10 ] = 16;
+    wipi_ports [ 11 ] = 0;
+    wipi_ports [ 12 ] = 1;
+    wipi_ports [ 13 ] = 2;
+    wipi_ports [ 15 ] = 3;
+    wipi_ports [ 16 ] = 4;
+    wipi_ports [ 18 ] = 5;
+    wipi_ports [ 19 ] = 12;
+    wipi_ports [ 21 ] = 13;
+    wipi_ports [ 22 ] = 6;
+    wipi_ports [ 23 ] = 14;
+    wipi_ports [ 24 ] = 10;
+    wipi_ports [ 26 ] = 11;
+    wipi_ports [ 29 ] = 21;
+    wipi_ports [ 31 ] = 22;
+    wipi_ports [ 32 ] = 26;
+    wipi_ports [ 33 ] = 23;
+    wipi_ports [ 35 ] = 24;
+    wipi_ports [ 36 ] = 27;
+    wipi_ports [ 37 ] = 25;
+    wipi_ports [ 38 ] = 28;
+    wipi_ports [ 40 ] = 29;
 
-    return ( int ) ports [ pin ];
+    return ( int ) wipi_ports [ phys_port ];
 }
 
 void
