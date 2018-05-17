@@ -144,7 +144,7 @@ write_port ( char* phys_port )
     // sets the port as output
     pinMode ( wpi_port, OUTPUT );
 
-    cout <<  "blinking port %s ..." << phys_port << endl;
+    cout <<  "blinking port " << phys_port << " ..." << endl;
 
     signal ( SIGINT, manage_signal );
     cout << "To finish type: \"Ctrl + c\"" << endl;
@@ -177,7 +177,7 @@ check_port ( int phys_port, int8_t* wipi_ports, const uint8_t size )
     // initialize ports array 
     for ( uint8_t i = 0; i < size; i++ )
     {
-        wipi_ports [ i ] = -1;
+        *( wipi_ports + i ) = -1;
     }
 
     // Valid physical pins 
