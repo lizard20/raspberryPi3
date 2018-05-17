@@ -37,7 +37,7 @@ void manage_signal ( int );
 **           returns a valid port number.
 **           returns -1 if it's not a valid port number
 */
-int8_t check_port ( int, int8_t*, const uint8_t );
+int8_t check_port ( int, int8_t*,  const uint8_t );
 
 /*
 ** Function: is_number
@@ -82,7 +82,10 @@ main ( int argc, char* argv [] )
         return 1;
     }
 
-    write_port ( argv [ 1 ] );
+    if ( !write_port ( argv [ 1 ] ) )
+    {
+        return 1;
+    }
 
     return 0;
 }
@@ -120,21 +123,21 @@ write_port ( char* phys_port )
         fprintf ( stderr, "Port must be an integer and positive number\n\n" );
         return false;	
     }
+    
 
-    /* Allocates room to the ports array  */
+    /* Allocates room for the ports array  */
     /* number of ports plus one */
     const uint8_t N = 41;
-    int8_t* wipi_ports = ( int8_t* ) malloc ( N * sizeof ( int8_t ) );
+    int8_t* wipi_ports = malloc ( N * sizeof ( int8_t ) );
     if ( wipi_ports == NULL )
     {
         fprintf ( stderr, "Memory allocation failed\n\n" );
         return false;	
     }
-
     int  wpi_port = check_port ( atoi ( phys_port ), wipi_ports, N );
     if ( wpi_port == -1 )
     {
-        fprintf ( stderr, "Pin number is not valid!\n\n" );
+        fprintf ( stderr, "Port number is not valid!\n\n" );
         return false;	
     }
 
@@ -147,7 +150,7 @@ write_port ( char* phys_port )
         return 1;
     }
 
-    /* sets the port as output*/
+  /* sets the port as output*/
     pinMode ( wpi_port, OUTPUT );
 
     printf ( "blinking port %s ...\n", phys_port );
@@ -173,11 +176,17 @@ write_port ( char* phys_port )
 }
 
 int8_t
-check_port ( int phys_port, int8_t* wipi_ports, const uint8_t N  )
+check_port ( int phys_port, int8_t* wipi_ports,  const uint8_t size)
 {
+    /* checks if physical port number is between 0 - 40 */
+    if ( phys_port >= size  || phys_port < 0 )
+    {
+        return -1;
+    }
+
     /* initialize ports array */
     uint8_t i;
-    for ( i = 0; i < N; i++ )
+    for ( i = 0; i < size; i++ )
     {
         *( wipi_ports + i ) = -1;
     }

@@ -78,7 +78,10 @@ main ( int argc, char* argv [] )
         return 1;
     }
 
-    write_port ( argv [ 1 ] );
+    if ( !write_port ( argv [ 1 ] ) )
+    {
+        return 1;
+    }
 
     return 0;
 }
@@ -163,10 +166,16 @@ write_port ( char* phys_port )
 }
 
 int8_t
-check_port ( int phys_port, int8_t* wipi_ports, const uint8_t N )
+check_port ( int phys_port, int8_t* wipi_ports, const uint8_t size )
 {
+    // checks if physical port number is between 0 - 40 
+    if ( phys_port >= size  || phys_port < 0 )
+    {
+        return -1;
+    }
+ 
     // initialize ports array 
-    for ( uint8_t i = 0; i < N; i++ )
+    for ( uint8_t i = 0; i < size; i++ )
     {
         wipi_ports [ i ] = -1;
     }

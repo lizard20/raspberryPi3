@@ -62,7 +62,6 @@ def main ( argv ):
     except:
         print ( "Port must be an integer and positive number" )
         sys.exit ()
-
     
     wipi_port =  check_port ( phys_port )
     if  wipi_port == -1:
@@ -82,7 +81,6 @@ def main ( argv ):
 
     # config port as output
     wipi.pinMode ( wipi_port, DIR [ 'OUT' ] )
-
 
     # initial state
     state = STATES [ 'ON' ]
