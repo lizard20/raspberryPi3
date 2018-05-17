@@ -14,6 +14,10 @@ def  check_port ( phys_port ):
     # number of ports plus one
     N = 41
 
+    # checks if physical port number is between 0 - 40 
+    if phys_port >= N or phys_port < 0:
+        return -1
+
     # Initialize ports
     wipi_ports = [ -1 for i in range ( N )]
 
@@ -85,7 +89,7 @@ def main ( argv ):
     # initial state
     state = STATES [ 'ON' ]
 
-    print ( "blinking port: {}".format ( phys_port ) )
+    print ( "blinking port {} ...".format ( phys_port ) )
     print ( "To finish press: 'Ctrl + c'" )
     try:
         while True:
@@ -100,7 +104,7 @@ def main ( argv ):
 
     except KeyboardInterrupt:
         wipi.digitalWrite ( wipi_port, STATES [ 'OFF' ]  )
-        print ( "\nprogram is closing..." )
+        print ( "\nprogram is closing ..." )
         sys.exit ( 0 )
 
 if __name__ == "__main__":
