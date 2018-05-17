@@ -123,7 +123,6 @@ write_port ( char* phys_port )
         fprintf ( stderr, "Port must be an integer and positive number\n\n" );
         return false;	
     }
-    
 
     /* Allocates room for the ports array  */
     /* number of ports plus one */
