@@ -1,6 +1,3 @@
-#ifndef ADS1115_H
-#define ADS1115_H
-
 /*
 ** ads1115.hpp
 ** Purpose: Configuration parameters
@@ -90,4 +87,3 @@
 #define COMP_QUE1 ( 0 << 1 )
 #define COMP_QUE0 ( 0 << 0 )
 
-#endif /* ADS1115_H */
