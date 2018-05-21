@@ -14,7 +14,7 @@
 ** 1: Begin a single conversion (when in power down mode)
 ** BIT 15
 */
-#define OS 		( 1 << 15 )
+#define OS	( 1 << 15 )
 
 /*
 ** Input multiplexer configuration
@@ -49,9 +49,9 @@
 ** 100 - 128SPS, 101 - 250SPS, 110 - 475SPS, 111 - 860SPS
 ** BITS [ 7:5 ]
 */
-#define DR2		( 1 << 7 )
-#define DR1		( 1 << 6 )
-#define DR0		( 0 << 5 )
+#define DR2	( 1 << 7 )
+#define DR1	( 1 << 6 )
+#define DR0	( 0 << 5 )
 
 /*
 ** COMP_MODE, comparator mode

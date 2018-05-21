@@ -37,9 +37,9 @@
 // 000 - 8SPS, 001 - 16SPS, 010 - 32SPS, 011 - 64SPS
 // 100 - 128SPS, 101 - 250SPS, 110 - 475SPS, 111 - 860SPS
 // BITS [ 7:5 ]
-#define DR2		( 1 << 7 )
-#define DR1		( 1 << 6 )
-#define DR0		( 0 << 5 )
+#define DR2	( 1 << 7 )
+#define DR1	( 1 << 6 )
+#define DR0	( 0 << 5 )
 
 // COMP_MODE, comparator mode.
 // 0: traditional comp. with hysteresis (default)
