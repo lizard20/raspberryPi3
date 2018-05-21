@@ -1,5 +1,5 @@
 // ads1115.hpp
-// Purpose: Configuration constants
+// Purpose: Configuration parameters
 //          definition
 // Author: Aldo Nunez
 
