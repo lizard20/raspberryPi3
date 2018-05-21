@@ -67,11 +67,9 @@ main()
         return 1;
     }
 
-    /* MSB in data8 [ 0 ] */
-    /* LSB in data8 [ 1 ] */
-    uint16_t int_val = 0x0;
-    int_val |= input.data8 [ 0 ] << 8;
-    int_val |= input.data8 [ 1 ];
+    /* MSByte in data8 [ 0 ] */
+    /* LSByte in data8 [ 1 ] */
+    uint16_t int_val = input.data8 [ 1 ] | input.data8 [ 0 ] << 8;
 
     float float_val = int_val * VOLTS_PER_STEP;
 
