@@ -1,5 +1,5 @@
 # Makefile to compile programs
-# src/ - source files *.cpp
+# src/ - source files *.cpp, *.hpp
 # obj/ - object file  *.o
 # bin/ - exec files   *
 # Author: Aldo Nunez
@@ -16,6 +16,9 @@ all: $(BIN) $(OBJ)
 
 bin/%: obj/%.o
 	$(CC) -o $@ $< $(LIBS) $(FLAGS)
+
+obj/%.o: src/%.cpp src/%.hpp
+	$(CC) -o $@ -c $<
 
 obj/%.o: src/%.cpp
 	@echo "Compiling:"  $<
