@@ -33,7 +33,7 @@ MainWindow::blink ()
 {
     bool ok;
     QString  portStr = ui -> portBox -> currentText ();
-    this -> port  = ( portStr ).toUShort( &ok );
+    this -> port  = ( portStr ).toUShort ( &ok );
     ui -> status -> setText ("blinking  port " +  portStr );
 
     // setup port
@@ -56,13 +56,13 @@ MainWindow::on_blinkButton_clicked ()
         timer -> stop ();
         ui -> blinkButton -> setText ( "Start" );
         ui -> status -> setText ( "Stop" );
-        ui -> portBox -> setEnabled( true );
+        ui -> portBox -> setEnabled ( true );
         digitalWrite ( this -> port, LOW );
     }
     else
     {
         timer -> start ( T );
         ui -> blinkButton -> setText ( "Stop" );
-        ui -> portBox -> setEnabled( false );
+        ui -> portBox -> setEnabled ( false );
     }
 }

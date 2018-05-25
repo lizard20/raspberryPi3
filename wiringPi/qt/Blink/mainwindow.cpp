@@ -34,7 +34,7 @@ MainWindow::~MainWindow()
 void
 MainWindow::blink ()
 {
-   ui -> status -> setText ( "blinking port " + QString::number( this -> port ) );
+   ui -> status -> setText ( "blinking port " + QString::number ( this -> port ) );
    digitalWrite ( this -> port, this -> state );
    this -> state  = !( this -> state );
 }
