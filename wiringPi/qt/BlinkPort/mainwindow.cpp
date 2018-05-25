@@ -6,7 +6,7 @@ MainWindow::MainWindow ( QWidget *parent ) :
     QMainWindow ( parent ),
     ui ( new Ui::MainWindow )
 {
-    ui->setupUi ( this );
+    ui -> setupUi ( this );
     ui -> status -> setText ( " " );
     ui -> blinkButton -> setText ( "Start" );
     this -> timer = new QTimer ( this );
