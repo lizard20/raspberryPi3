@@ -6,10 +6,12 @@
 // Author: Aldo Nunez
 //
 
-#include <stdio.h>
+#include <iostream>
 #include <stdint.h>
 #include <signal.h>
 #include <wiringPi.h>
+
+using namespace std;
 
 volatile sig_atomic_t  flag = 1;
 
@@ -28,9 +30,9 @@ int
 main ( void ) 
 {
     /* setup */
-    if ( wiringPiSetup () )
+    if ( wiringPiSetupPhys () )
     {
-        fprintf ( stderr,  "Failing to setup wiringPi\n" );
+        cerr << "Failing to setup wiringPi" << endl;
         return 1;
     }
 
@@ -43,10 +45,10 @@ main ( void )
     /* delay in milliseconds */
     const int T = 1000;
 
-    /* Ports numbers */
-    const uint8_t BIT0 = 0;
-    const uint8_t BIT1 = 2;
-    const uint8_t BIT2 = 3;
+    /* output ports */
+    const uint8_t BIT0 = 11;
+    const uint8_t BIT1 = 12;
+    const uint8_t BIT2 = 13;
 
     /* sets ports as ouputs  */
     pinMode ( BIT0, OUTPUT );
@@ -59,11 +61,12 @@ main ( void )
     const int ARR2 [] = { 0, 0, 0, 0, 1, 1, 1, 1 };
 
     signal ( SIGINT, manage_signal );
-    printf ( "To finish print \"ctrl + c\" \n" );
+    cout <<  "To finish print \"ctrl + c\"" << endl ;
 
     while ( flag )
     {
-        printf ( "decimal %d is %d%d%d in binary\n", i, ARR2 [ i ], ARR1 [ i ], ARR0 [ i ] );
+        cout <<  "decimal " << unsigned ( i ) << " is " << ARR2 [ i ] \
+        << ARR1 [ i ] << ARR0 [ i ] << " in binary" << endl;
         /* writes ports */
         digitalWrite ( BIT0, ARR0 [ i ] );
         digitalWrite ( BIT1, ARR1 [ i ] );
@@ -93,6 +96,6 @@ manage_signal ( int sig )
     {
         flag = 0;
     }
-    printf ("\nprogram is closing ... \n" );
+    cout << "\nprogram is closing ..." <<  endl;
 }
 

@@ -29,7 +29,7 @@ int
 main ( void ) 
 {
     /* setup */
-    if ( wiringPiSetup () )
+    if ( wiringPiSetupPhys () )
     {
         fprintf ( stderr,  "Failing to setup wiringPi\n" );
         return 1;
@@ -44,10 +44,10 @@ main ( void )
     /* delay in milliseconds */
     const int T = 1000;
 
-    /* Ports numbers */
-    const uint8_t BIT0 = 0;
-    const uint8_t BIT1 = 2;
-    const uint8_t BIT2 = 3;
+    /* output ports */
+    const uint8_t BIT0 = 11;
+    const uint8_t BIT1 = 12;
+    const uint8_t BIT2 = 13;
 
     /* sets ports as ouputs  */
     pinMode ( BIT0, OUTPUT );
