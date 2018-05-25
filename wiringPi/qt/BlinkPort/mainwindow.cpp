@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+// constructor
 MainWindow::MainWindow ( QWidget *parent ) :
     QMainWindow ( parent ),
     ui ( new Ui::MainWindow )
@@ -19,6 +20,7 @@ MainWindow::MainWindow ( QWidget *parent ) :
     connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
 }
 
+// destructor
 MainWindow::~MainWindow ()
 {
     digitalWrite ( this -> port, LOW );
@@ -42,7 +44,7 @@ MainWindow::blink ()
     this -> state  = !( this -> state );
 }
 
-// start stop button
+// start stop method
 void
 MainWindow::on_blinkButton_clicked ()
 {

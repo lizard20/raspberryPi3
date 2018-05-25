@@ -39,7 +39,7 @@ MainWindow::blink ()
    this -> state  = !( this -> state );
 }
 
-// start stop button
+// start stop method
 void
 MainWindow::on_blinkButton_clicked ()
 {
