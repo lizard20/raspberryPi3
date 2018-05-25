@@ -1,5 +1,5 @@
 /*
-** Name:    blink_port
+** Name:    blink_port.c
 ** Purpose: Blinks one of the 26 valid ports
 ** Author:  Aldo Nunez
 */

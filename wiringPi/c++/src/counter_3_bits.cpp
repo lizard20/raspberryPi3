@@ -1,8 +1,8 @@
 //
 // Program: counter_3_bits.cpp
-// Description: 3 bits counter. 0 -> 7 or
-//              000 -> 111
-//              Ouptput pins: 11, 13 ,15
+// Purpose: 3 bits counter. 0 -> 7 or
+//          000 -> 111
+//          Ouptput pins: 11, 13 ,15
 // Author: Aldo Nunez
 //
 

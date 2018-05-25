@@ -1,5 +1,5 @@
 //
-// Name:    blink_port
+// Program:    blink_port.cpp
 // Purpose: Blinks one of the 26 valid ports
 // Author:  Aldo Nunez
 //

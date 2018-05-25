@@ -1,4 +1,5 @@
-// Program: i2c_ads1115.c
+//
+// Program: i2c_ads1115.cpp
 // Purpose: Read analog signal using DAC
 //          ADS115 through  i2c port
 // Author:  Aldo Nunez

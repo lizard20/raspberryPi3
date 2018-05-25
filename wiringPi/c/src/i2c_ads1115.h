@@ -2,7 +2,7 @@
 #define ADS1115_H
 
 /*
-** ads1115.hpp
+** ads1115.h
 ** Purpose: Configuration parameters
 **          definition
 ** Author: Aldo Nunez
