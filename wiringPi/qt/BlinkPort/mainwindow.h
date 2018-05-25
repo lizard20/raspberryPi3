@@ -26,7 +26,6 @@ private:
     Ui::MainWindow *ui;
     unsigned short int state;
     unsigned short int port;
-    QString portStr;
     QTimer* timer;
 };
 

@@ -25,20 +25,24 @@ MainWindow::~MainWindow ()
     delete ui;
 }
 
+// blink method
 void
 MainWindow::blink ()
 {
     bool ok;
-    this -> portStr = ui -> portBox -> currentText ();
-    this -> port  = ( this -> portStr ).toUShort( &ok );
-    ui -> status -> setText ("blinking  port " + this -> portStr );
+    QString  portStr = ui -> portBox -> currentText ();
+    this -> port  = ( portStr ).toUShort( &ok );
+    ui -> status -> setText ("blinking  port " +  portStr );
+
     // setup port
     pinMode ( this -> port, OUTPUT );
     digitalWrite ( this -> port, this -> state );
+
     // flip state
     this -> state  = !( this -> state );
 }
 
+// start stop button
 void
 MainWindow::on_blinkButton_clicked ()
 {
