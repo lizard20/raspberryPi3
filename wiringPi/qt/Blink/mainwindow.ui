@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="quitButton">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -55,7 +55,7 @@
      <rect>
       <x>50</x>
       <y>20</y>
-      <width>130</width>
+      <width>230</width>
       <height>17</height>
      </rect>
     </property>
@@ -95,7 +95,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>quitButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>

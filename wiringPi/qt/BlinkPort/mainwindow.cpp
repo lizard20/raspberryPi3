@@ -13,8 +13,13 @@ MainWindow::MainWindow ( QWidget *parent ) :
 
     this -> state = HIGH;
 
-    // setup wiringPi
-    wiringPiSetupPhys ();
+    // wiringPi setup
+    if ( wiringPiSetupPhys () )
+    {
+        ui -> status -> setText ( "<font color='red'>Failing to setup wiringPi</font>" );
+        ui -> portBox -> setEnabled ( false );
+        ui -> blinkButton -> setEnabled ( false );
+    }
 
     // slot
     connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
@@ -31,16 +36,25 @@ MainWindow::~MainWindow ()
 void
 MainWindow::blink ()
 {
-    bool ok;
+    // reads port number
     QString  portStr = ui -> portBox -> currentText ();
+
+    // displays state message
+    QString message = "blinking port " + portStr;
+    QString colour = "blue";
+    QString display  = tr ( "<font color='%1'>%2</font>" );
+    ui -> status -> setText ( display.arg ( colour, message ) );
+    // convers string number port to unsigned integer
+    bool ok;
     this -> port  = ( portStr ).toUShort ( &ok );
-    ui -> status -> setText ("blinking  port " +  portStr );
 
-    // setup port
+    // sets up por as output
     pinMode ( this -> port, OUTPUT );
-    digitalWrite ( this -> port, this -> state );
 
-    // flip state
+    // writes to the output port
+    digitalWrite ( this -> port, this -> state );
+    
+    // flips state
     this -> state  = !( this -> state );
 }
 
@@ -53,16 +67,32 @@ MainWindow::on_blinkButton_clicked ()
 
     if ( timer -> isActive () )
     {
+        // stops timer
         timer -> stop ();
+
+        // displays 'Start' label on blinkButton
         ui -> blinkButton -> setText ( "Start" );
-        ui -> status -> setText ( "Stop" );
+        
+        // displays 'stop' state message
+        ui -> status -> setText ( "<font color='blue'>stop</font>" );
+     
+        // enables quitButton and portBox
         ui -> portBox -> setEnabled ( true );
+        ui -> quitButton -> setEnabled ( true );
+
+        // writes 0 volts to the output port
         digitalWrite ( this -> port, LOW );
     }
     else
     {
+        // starts timer
         timer -> start ( T );
+
+        // displays 'Stop' label on blinkButton
         ui -> blinkButton -> setText ( "Stop" );
+
+        // disables portBox
         ui -> portBox -> setEnabled ( false );
+        ui -> quitButton -> setEnabled ( false );
     }
 }

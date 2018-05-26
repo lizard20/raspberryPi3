@@ -14,12 +14,20 @@ MainWindow::MainWindow ( QWidget *parent ) :
     this -> port = 3;
     this -> state = HIGH;
 
-    // pin configuration
-    wiringPiSetupPhys ();
+    // wiringPi setup
+    if ( wiringPiSetupPhys () )
+    {
+        ui -> status -> setText ( "<font color='red'>Failing to setup wiringPi</font>" );
+        ui -> blinkButton -> setEnabled ( false );
+    }
+
+    // configures port as output
     pinMode ( this -> port, OUTPUT );
+    
+    // writes 0 volts to the output port
     digitalWrite ( this -> port, LOW );
 
-    // slot
+    // connect timer to blink function
     connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
 }
 
@@ -33,10 +41,12 @@ MainWindow::~MainWindow()
 // blink method
 void
 MainWindow::blink ()
-{
-   ui -> status -> setText ( "blinking port " + QString::number ( this -> port ) );
-   digitalWrite ( this -> port, this -> state );
-   this -> state  = !( this -> state );
+{ 
+    // writes to the output port
+    digitalWrite ( this -> port, this -> state );
+
+    // flips state
+    this -> state  = !( this -> state );
 }
 
 // start stop method
@@ -48,14 +58,36 @@ MainWindow::on_blinkButton_clicked ()
 
     if ( this -> timer -> isActive () )
     {
+        // stops timer
         this -> timer -> stop ();
+        
+        // displays 'Start' label on blinkButton
         ui -> blinkButton -> setText ( "Start" );
-        ui -> status -> setText ( "stop" );
+        
+        // displays 'stop' state message
+        ui -> status -> setText ( "<font color='blue'>stop</font>" );
+        
+        // writes 0 volts to the output port
         digitalWrite ( this -> port, LOW );
+
+        // enables quit button
+        ui -> quitButton -> setEnabled ( true );
     }
     else
     {
+        // starts timer
         this -> timer -> start ( T );
-        ui -> blinkButton -> setText ( "Stop" );
+
+        // displays 'Stop' label on blinkButton
+        ui -> blinkButton -> setText ( "Stop" ); 
+    
+        // displays 'blinking' state message
+        QString message = "blinking port " + QString::number ( this -> port );
+        QString colour = "blue";
+        QString display  = tr ( "<font color='%1'>%2</font>" );
+        ui -> status -> setText ( display.arg ( colour, message ) );
+        
+        // disables quit button
+        ui -> quitButton -> setEnabled ( false );
     }
 }
