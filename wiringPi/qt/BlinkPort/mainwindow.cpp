@@ -48,7 +48,7 @@ MainWindow::config_port ()
     bool ok;
     this -> port  = ( portStr ).toUShort ( &ok );
 
-    // sets up por as output
+    // sets up port as output
     pinMode ( this -> port, OUTPUT );
 }
 
@@ -73,7 +73,6 @@ MainWindow::on_blinkButton_clicked ()
     if ( timer -> isActive () )
     {
         // stops timer
-    qDebug ( "mamada" );
         timer -> stop ();
 
         // displays 'Start' label on blinkButton
