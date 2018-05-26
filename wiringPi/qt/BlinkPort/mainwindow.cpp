@@ -6,9 +6,11 @@ MainWindow::MainWindow ( QWidget *parent ) :
     QMainWindow ( parent ),
     ui ( new Ui::MainWindow )
 {
+
     ui -> setupUi ( this );
     ui -> status -> setText ( " " );
     ui -> blinkButton -> setText ( "Start" );
+
     this -> timer = new QTimer ( this );
 
     this -> state = HIGH;
@@ -60,6 +62,7 @@ MainWindow::blink ()
     digitalWrite ( this -> port, this -> state );
     
     // flips state
+
     this -> state  = !( this -> state );
 }
 
@@ -78,6 +81,7 @@ MainWindow::on_blinkButton_clicked ()
         // displays 'Start' label on blinkButton
         ui -> blinkButton -> setText ( "Start" );
         
+
         // displays 'stop' state message
         ui -> status -> setText ( "<font color='blue'>stop</font>" );
      
