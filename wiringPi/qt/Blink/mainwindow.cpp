@@ -52,6 +52,7 @@ MainWindow::blink ()
 // start stop method
 void
 MainWindow::on_blinkButton_clicked ()
+
 {
     // 100 ~ 100 ms
     const int T = 100;
