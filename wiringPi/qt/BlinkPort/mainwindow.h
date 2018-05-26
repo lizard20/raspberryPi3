@@ -20,12 +20,14 @@ public:
 
 private slots:
     void on_blinkButton_clicked();
+    void config_port ();
     void blink ();
 
 private:
     Ui::MainWindow *ui;
     unsigned short int state;
     unsigned short int port;
+    QString portStr;
     QTimer* timer;
 };
 

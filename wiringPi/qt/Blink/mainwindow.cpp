@@ -27,7 +27,7 @@ MainWindow::MainWindow ( QWidget *parent ) :
     // writes 0 volts to the output port
     digitalWrite ( this -> port, LOW );
 
-    // connect timer to blink function
+    // timer executes blink method periodically
     connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
 }
 

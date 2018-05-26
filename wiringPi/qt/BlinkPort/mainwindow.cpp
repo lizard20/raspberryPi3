@@ -21,8 +21,14 @@ MainWindow::MainWindow ( QWidget *parent ) :
         ui -> blinkButton -> setEnabled ( false );
     }
 
-    // slot
+    // config default output
+    this -> config_port ();
+
+    // timer executes blink method periodically
     connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
+
+    // detects any change in port number and configures the corresponding port
+    connect ( ui -> portBox, SIGNAL ( activated ( int ) ), this, SLOT ( config_port () ) );
 }
 
 // destructor
@@ -32,25 +38,24 @@ MainWindow::~MainWindow ()
     delete ui;
 }
 
-// blink method
 void
-MainWindow::blink ()
+MainWindow::config_port ()
 {
     // reads port number
-    QString  portStr = ui -> portBox -> currentText ();
+    portStr = ui -> portBox -> currentText ();
 
-    // displays state message
-    QString message = "blinking port " + portStr;
-    QString colour = "blue";
-    QString display  = tr ( "<font color='%1'>%2</font>" );
-    ui -> status -> setText ( display.arg ( colour, message ) );
     // convers string number port to unsigned integer
     bool ok;
     this -> port  = ( portStr ).toUShort ( &ok );
 
     // sets up por as output
     pinMode ( this -> port, OUTPUT );
+}
 
+// blink method
+void
+MainWindow::blink ()
+{
     // writes to the output port
     digitalWrite ( this -> port, this -> state );
     
@@ -68,6 +73,7 @@ MainWindow::on_blinkButton_clicked ()
     if ( timer -> isActive () )
     {
         // stops timer
+    qDebug ( "mamada" );
         timer -> stop ();
 
         // displays 'Start' label on blinkButton
@@ -76,6 +82,7 @@ MainWindow::on_blinkButton_clicked ()
         // displays 'stop' state message
         ui -> status -> setText ( "<font color='blue'>stop</font>" );
      
+
         // enables quitButton and portBox
         ui -> portBox -> setEnabled ( true );
         ui -> quitButton -> setEnabled ( true );
@@ -87,6 +94,12 @@ MainWindow::on_blinkButton_clicked ()
     {
         // starts timer
         timer -> start ( T );
+
+        // displays 'blinking' state message
+        QString message = "blinking port " + portStr;
+        QString colour = "blue";
+        QString display  = tr ( "<font color='%1'>%2</font>" );
+        ui -> status -> setText ( display.arg ( colour, message ) );
 
         // displays 'Stop' label on blinkButton
         ui -> blinkButton -> setText ( "Stop" );
