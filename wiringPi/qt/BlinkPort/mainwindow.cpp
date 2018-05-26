@@ -81,7 +81,6 @@ MainWindow::on_blinkButton_clicked ()
         // displays 'stop' state message
         ui -> status -> setText ( "<font color='blue'>stop</font>" );
      
-
         // enables quitButton and portBox
         ui -> portBox -> setEnabled ( true );
         ui -> quitButton -> setEnabled ( true );
