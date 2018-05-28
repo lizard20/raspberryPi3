@@ -22,15 +22,18 @@ MainWindow::MainWindow ( QWidget *parent ) :
         ui -> portBox -> setEnabled ( false );
         ui -> blinkButton -> setEnabled ( false );
     }
+    else
+    {
 
-    // config default output
-    this -> config_port ();
+        // config default output
+        this -> config_port ();
 
-    // timer executes blink method periodically
-    connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
+        // timer executes blink method periodically
+        connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
 
-    // detects any change in port number and configures the corresponding port
-    connect ( ui -> portBox, SIGNAL ( activated ( int ) ), this, SLOT ( config_port () ) );
+        // detects any change in port number and configures the corresponding port
+        connect ( ui -> portBox, SIGNAL ( activated ( int ) ), this, SLOT ( config_port () ) );
+    }
 }
 
 // destructor
@@ -62,7 +65,6 @@ MainWindow::blink ()
     digitalWrite ( this -> port, this -> state );
     
     // flips state
-
     this -> state  = !( this -> state );
 }
 
