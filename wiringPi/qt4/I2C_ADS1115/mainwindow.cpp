@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // Creates timer
     QTimer* timer = new QTimer ( this );
 
+    // sets up lcdNumber
+    ui -> lcdNumber -> setDecMode( );
+
     // error message
     const QString err_message = "ERROR!";
 
@@ -39,14 +42,14 @@ MainWindow::MainWindow(QWidget *parent) :
     if ( fd < 0 )
     {
         qDebug ( "Couldn't open i2c-1 device" );
-        ui -> showValue -> setText ( err_message ); 
+        ui -> lcdNumber -> display ( 0 ); 
     }
 
     // writes config parameters
     else if ( wiringPiI2CWriteReg16 ( fd, 1, config ) )
     {
         qDebug ( "Error writing device" );
-        ui -> showValue -> setText ( err_message ); 
+        ui -> lcdNumber -> display ( 0 ); 
     }
     else
     {
@@ -64,13 +67,11 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 }
 
-// destructor
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-// reads and displays data
 void
 MainWindow::displayValue () const
 {
@@ -97,6 +98,5 @@ MainWindow::displayValue () const
     float floatValue = input -> data16 * VOLTS_PER_STEP;
 
     // displays float value 
-    ui -> showValue -> setText ( QString::number ( floatValue, 'f', 4 ) );
+    ui -> lcdNumber -> display ( floatValue );
 }
-
