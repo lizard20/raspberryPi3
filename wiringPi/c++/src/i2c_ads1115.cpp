@@ -13,7 +13,6 @@
 
 using namespace std;
 
-typedef union DATA DATA;
 union DATA
 {
     uint16_t data16;
@@ -23,8 +22,8 @@ union DATA
 int
 main ()
 {
-    DATA input;
-    input.data16 = 0x0;
+    DATA t, *input = &t;
+    input -> data16 = 0x0;
 
     // integer to float conversion constant
     const float VOLTS_PER_STEP =  6.144 / 32768.0;
@@ -62,18 +61,14 @@ main ()
     }
 
     // reads voltage as 16 bits integer
-    input.data16 = wiringPiI2CReadReg16 ( fd, 4 );
-    if ( input.data16 < 0 )
-    {
-        cerr << "Error reading data" << endl;
-        return 1;
-    }
+    input -> data16 = wiringPiI2CReadReg16 ( fd, 4 );
 
+    // arranges the bytes
     // MSByte in data8 [ 0 ]
     // LSByte in data8 [ 1 ]
-    uint16_t int_val =  input.data8 [ 1 ] | input.data8 [ 0 ] << 8 ;
+    input -> data16 =  input -> data8 [ 1 ] | input -> data8 [ 0 ] << 8 ;
 
-    float float_val = int_val * VOLTS_PER_STEP;
+    float float_val = input -> data16 * VOLTS_PER_STEP;
 
     cout << fixed <<  setprecision ( 3 ) << \
     "Input voltage: " <<  float_val << " Volts" << endl;

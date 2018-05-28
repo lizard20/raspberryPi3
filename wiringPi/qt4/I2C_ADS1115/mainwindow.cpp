@@ -88,7 +88,7 @@ MainWindow::displayValue () const
     Data t, *input =  &t;
     input -> data16 = wiringPiI2CReadReg16 ( fd, 4 );
 
-    // order the bytes
+    // arranges the bytes
     // MSByte in data8 [ 0 ]
     // LSByte in data8 [ 1 ]
     input -> data16 =  input -> data8 [ 1 ] | input -> data8 [ 0 ] << 8;
