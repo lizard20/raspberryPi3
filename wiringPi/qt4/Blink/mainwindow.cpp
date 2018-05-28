@@ -8,6 +8,8 @@ MainWindow::MainWindow ( QWidget *parent ) :
 {
     ui -> setupUi ( this );
     ui -> status -> setText ( " " );
+
+    // initiazilize timer object
     this -> timer = new QTimer ( this );
     
     // output port 3
