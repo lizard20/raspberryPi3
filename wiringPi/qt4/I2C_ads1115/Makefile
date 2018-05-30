@@ -215,7 +215,7 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-main.o: main.cpp mainwindow.h i2c_ads1115.hpp
+main.o: main.cpp mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \

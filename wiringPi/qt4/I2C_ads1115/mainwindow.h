@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <wiringPi.h>
 #include <wiringPiI2C.h>
-#include "i2c_ads1115.hpp"
+#include <ads1115.h>
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +24,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    unsigned int pin;
 };
 
 #endif // MAINWINDOW_H
