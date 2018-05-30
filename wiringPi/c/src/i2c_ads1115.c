@@ -24,7 +24,7 @@ main()
     int16_t int_value = 0x0;
     double  voltage = 0.0;
 
-    /* sets up ads1115 */
+    /* sets up ADS1115 */
     if ( !ads1115Setup ( pin, ADS_ADDRESS ) )
     {
         fprintf ( stderr, "Couldn't open i2c-1 device\n" );
@@ -45,11 +45,11 @@ main()
         /* converts to double */
         voltage = int_value * VOLTS_PER_STEP;
         
-        /* prints lectures */
+        /* prints lecture */
         printf ( "Input voltage: %5.4f Volts\n", voltage );
 
         /* wait */
-        delay ( 1500 );
+        delay ( 1000 );
     }
 
     return 0;
