@@ -54,13 +54,10 @@ main ( void )
     while ( flag )
     {
         // blink
-        digitalWrite ( WPI_PORT, state );
+        digitalWrite ( WPI_PORT, state = !state );
 
         // waiting
         delay ( T );
-
-        // switch state
-        state = !state;
     } // end of while
 
     digitalWrite ( WPI_PORT, 0 );

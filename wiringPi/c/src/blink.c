@@ -35,12 +35,12 @@ main ( void )
     {
         /* blink */
         digitalWrite ( WPI_PORT, state );
+        
+        /* switch state */
+        state = !state;
 
         /* waiting */
         delay ( T );
-
-        /* switch state */
-        state = !state;
     } /* end of while */
 
     return 0;

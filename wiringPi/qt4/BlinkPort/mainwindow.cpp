@@ -62,10 +62,7 @@ void
 MainWindow::blink ()
 {
     // writes to the output port
-    digitalWrite ( this -> port, this -> state );
-    
-    // flips state
-    this -> state  = !( this -> state );
+    digitalWrite ( this -> port, this -> state = !( this -> state ) );
 }
 
 // start stop method
