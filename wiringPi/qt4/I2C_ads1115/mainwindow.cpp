@@ -29,9 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
     else
     {
         // configures Gain Control to 6.144 volts - 0
-        digitalWrite ( this -> pin, 1 );
+        digitalWrite ( this -> pin, 0 );
+
         // configures Data Rate to 475 SPS - 6
-        digitalWrite ( this -> pin + 1, 4 );
+        digitalWrite ( this -> pin + 1, 6 );
 
         // reads and displays data periodiocally
         connect ( timer, SIGNAL ( timeout () ), this, SLOT ( displayValue () ) );
@@ -53,16 +54,17 @@ void
 MainWindow::displayValue () const
 {
     // integer to float conversion constant
-//    const double VOLTS_PER_STEP =  6.144 / 32768.0;
-    const double VOLTS_PER_STEP =  4.096 / 32768;
+    const double VOLTS_PER_STEP =  6.144 / 32768;
 
-    quint16 int_value;
+    quint16 input_value;
+    input_value = static_cast < quint16 > ( analogRead ( this -> pin ) );
+    if ( !input_value )
+    {
+        qDebug ( "Error reading input!!" );
+    }
+    // converts from 16 bits integer to double
+    double voltage = input_value * VOLTS_PER_STEP;
 
-    int_value = static_cast < quint16 > ( analogRead ( this -> pin ) );
-
-    // converts from 16 bits integer to float
-    double voltage = int_value * VOLTS_PER_STEP;
-
-    // displays float value 
+    // displays voltage 
     ui -> lcdNumber -> display ( voltage );
 }
