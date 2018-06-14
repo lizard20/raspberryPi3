@@ -55,8 +55,9 @@ MainWindow::on_blinkButton_clicked ()
 {
     // 100 ~ 100 ms
     const int T = 100;
-
-    if ( this -> timer -> isActive () )
+    
+    // stop state
+    if ( this -> timer -> isActive () ) 
     {
         // stops timer
         this -> timer -> stop ();
@@ -73,7 +74,8 @@ MainWindow::on_blinkButton_clicked ()
         // enables quit button
         ui -> quitButton -> setEnabled ( true );
     }
-    else
+    // blinking state
+    else 
     {
         // starts timer
         this -> timer -> start ( T );

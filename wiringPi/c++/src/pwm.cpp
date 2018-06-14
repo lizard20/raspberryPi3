@@ -40,7 +40,7 @@ main ( void )
 
     // sets port to ALT MODE-5
     const int FSEL_ALT5 = 0b010;
-    pinModeAlt (PWM_PORT, FSEL_ALT5 );
+    pinModeAlt ( PWM_PORT, FSEL_ALT5 );
 
     // sets Mark/Space mode 
     pwmSetMode ( PWM_MODE_MS );

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTimer>
+#include <QDebug>
 #include <wiringPi.h>
 
 namespace Ui {
@@ -18,15 +18,19 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButtonBlink_clicked();
-    void blink ( void );
-    void config_port ( void );
+    void on_freqSlider_valueChanged ( int );
+    void on_dcSlider_valueChanged ( int );
+    void on_comboBox_currentIndexChanged ( int );
 
 private:
     Ui::MainWindow *ui;
-    unsigned short int state;
-    QList < int > ports;
-    QTimer* timer;
+    int freq;
+    int dutyCycleP;
+    int pwmPort;
+    QMap < int, QString > frequencyRange;
+
+    void config ( void );
+    void pwmOutput ( void );
 };
 
 #endif // MAINWINDOW_H

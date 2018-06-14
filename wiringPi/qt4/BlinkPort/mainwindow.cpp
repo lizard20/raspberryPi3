@@ -2,94 +2,91 @@
 #include "ui_mainwindow.h"
 
 // constructor
-MainWindow::MainWindow ( QWidget *parent ) :
-    QMainWindow ( parent ),
-    ui ( new Ui::MainWindow )
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
-
-    ui -> setupUi ( this );
-    ui -> status -> setText ( " " );
-    ui -> blinkButton -> setText ( "Start" );
-
+    ui->setupUi(this);
     this -> timer = new QTimer ( this );
+    ui -> labelStatus -> setText ( "" );
+    ui -> pushButtonBlink -> setText( "Start" );
 
-    this -> state = HIGH;
+    //  list of valid ports
+    this -> ports << 3  << 5  << 7  << 8  << 10 << 11 << 12 << 13 << 15;
+    this -> ports << 16 << 18 << 19 << 21 << 22 << 23 << 24 << 26 << 29;
+    this -> ports << 31 << 32 << 33 << 35 << 36 << 37 << 38 << 40;
 
-    // wiringPi setup
+    // combo box labels
+    for ( int i = 0; i < ports.size (); ++i )
+    {
+        ui -> comboBoxPorts -> addItem ( QString::number ( ports.at ( i ) ) );
+    }
+
+    // init state 
+    this -> state = LOW;
+
+    // config wiringPi
     if ( wiringPiSetupPhys () )
     {
-        ui -> status -> setText ( "<font color='red'>Failing to setup wiringPi</font>" );
-        ui -> portBox -> setEnabled ( false );
-        ui -> blinkButton -> setEnabled ( false );
+        ui -> labelStatus -> setText ( "<font color='red'>Failing to setup wiringPi</font>" );
+        ui -> comboBoxPorts -> setEnabled ( false );
+        ui -> pushButtonBlink -> setEnabled ( false );
     }
     else
     {
-
-        // config default output
-        this -> config_port ();
-
-        // timer executes blink method periodically
+         // timer executes blink method periodically
         connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
 
         // detects any change in port number and configures the corresponding port
-        connect ( ui -> portBox, SIGNAL ( activated ( int ) ), this, SLOT ( config_port () ) );
+        connect ( ui -> comboBoxPorts, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( config_port () ) );
     }
 }
 
 // destructor
-MainWindow::~MainWindow ()
+MainWindow::~MainWindow()
 {
-    digitalWrite ( this -> port, LOW );
+    digitalWrite ( this -> ports.at ( ui -> comboBoxPorts -> currentIndex () ), LOW );
     delete ui;
-}
-
-void
-MainWindow::config_port ()
-{
-    // reads port number
-    portStr = ui -> portBox -> currentText ();
-
-    // convers string number port to unsigned integer
-    bool ok;
-    this -> port  = ( portStr ).toUShort ( &ok );
-
-    // sets up port as output
-    pinMode ( this -> port, OUTPUT );
 }
 
 // blink method
 void
-MainWindow::blink ()
+MainWindow::blink( void )
 {
     // writes to the output port
-    digitalWrite ( this -> port, this -> state = !( this -> state ) );
+    digitalWrite ( this -> ports.at ( ui -> comboBoxPorts -> currentIndex () ), this -> state = !( this -> state ) );
 }
 
-// start stop method
+// config method
 void
-MainWindow::on_blinkButton_clicked ()
+MainWindow::config_port ()
 {
-    // 100 ~ 100 ms
-    const int T = 100;
+    pinMode ( this -> ports.at ( ui -> comboBoxPorts -> currentIndex () ), OUTPUT );
+}
 
+// starts stops method
+void
+MainWindow::on_pushButtonBlink_clicked ()
+{
+    // 100 ~ 100ms
+    const int T = 100;
     if ( timer -> isActive () )
     {
         // stops timer
         timer -> stop ();
 
         // displays 'Start' label on blinkButton
-        ui -> blinkButton -> setText ( "Start" );
-        
+        ui -> pushButtonBlink -> setText ( "Start" );
 
         // displays 'stop' state message
-        ui -> status -> setText ( "<font color='blue'>stop</font>" );
-     
+        ui -> labelStatus -> setText ( "<font color='blue'>stop</font>" );
+
         // enables quitButton and portBox
-        ui -> portBox -> setEnabled ( true );
-        ui -> quitButton -> setEnabled ( true );
+        ui -> comboBoxPorts -> setEnabled ( true );
+        ui -> pushButtonQuit -> setEnabled ( true );
 
         // writes 0 volts to the output port
-        digitalWrite ( this -> port, LOW );
+        digitalWrite ( this -> ports.at ( ui -> comboBoxPorts -> currentIndex () ), LOW );
     }
     else
     {
@@ -97,16 +94,16 @@ MainWindow::on_blinkButton_clicked ()
         timer -> start ( T );
 
         // displays 'blinking' state message
-        QString message = "blinking port " + portStr;
+        QString message = "blinking port " + ui -> comboBoxPorts -> currentText ();
         QString colour = "blue";
         QString display  = tr ( "<font color='%1'>%2</font>" );
-        ui -> status -> setText ( display.arg ( colour, message ) );
+        ui -> labelStatus -> setText ( display.arg ( colour, message ) );
 
         // displays 'Stop' label on blinkButton
-        ui -> blinkButton -> setText ( "Stop" );
+        ui -> pushButtonBlink -> setText ( "Stop" );
 
-        // disables portBox
-        ui -> portBox -> setEnabled ( false );
-        ui -> quitButton -> setEnabled ( false );
+        // disables portBox and Quit button while led is blinking
+        ui -> comboBoxPorts -> setEnabled ( false );
+        ui -> pushButtonQuit -> setEnabled ( false );
     }
 }

@@ -37,6 +37,8 @@ main()
     /* configures data rate to 475 SPS - 6 */
     digitalWrite ( PIN + 1, 6 );
 
+    delay ( 1000 );
+
     while ( 1 )
     {
         /* reads input */ 
