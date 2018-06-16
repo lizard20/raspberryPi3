@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QtGlobal>
 #include <wiringPi.h>
 
 namespace Ui {
@@ -24,13 +25,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    int freq;
-    int dutyCycleP;
-    int pwmPort;
-    QMap < int, QString > frequencyRange;
+    quint32 freq;
+    quint8 dutyCycleP;
+    quint8 pwmPort;
+    QMap < quint32, QString > frequencyRange;
 
     void config ( void );
-    void pwmOutput ( void );
+    void pwmOutput ( void ) const;
 };
 
 #endif // MAINWINDOW_H

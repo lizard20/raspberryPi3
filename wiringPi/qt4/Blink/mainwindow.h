@@ -18,13 +18,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_blinkButton_clicked ();
-    void blink ();
+    void on_pushButtonBlink_clicked();
+    void blink ( void );
 
-private: 
+private:
     Ui::MainWindow *ui;
-    unsigned short int port;
-    unsigned short int state;
+    quint8 port;
+    quint8 state;
     QTimer* timer;
 };
 

@@ -13,16 +13,16 @@ MainWindow::MainWindow(QWidget *parent) :
     this -> frequencyRange.insert ( 10e3  , "0 - 10K Hz"  );
     this -> frequencyRange.insert ( 100e3 , "0 - 100K Hz" );
 
-    // max and min frequencies
-    const int MINFREQ = 0;
+    // min frequency
+    const quint8 MINFREQ = 0;
 
     // duty cycle max and min values
-    const int MAXDC = 100;
-    const int MINDC = 0;
+    const quint8 MAXDC = 100;
+    const quint8 MINDC = 0;
 
-    // add frequency range items
+    // add frequency range items to combo box
     QList < QString > values = frequencyRange.values ();
-    for ( int i = 0; i < values.size (); ++i )
+    for ( quint8 i = 0; i < values.size (); ++i )
     {
         ui -> comboBox -> addItem ( values.at ( i ) );
     }
@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // init values for frequency slider and freq display
     ui -> freqLcd -> display ( MINFREQ );
     ui -> freqSlider -> setMinimum ( MINFREQ );
-    QMap < int, QString > :: const_iterator i = frequencyRange.constBegin ();
+    QMap < quint32, QString > :: const_iterator i = frequencyRange.constBegin ();
     ui -> freqSlider -> setMaximum ( i.key () );
 
     // init values for ducty cycle slider and duty cycle  display
@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     if ( wiringPiSetupPhys () )
     {
         qDebug ( "Failing to setup wiringPi" );
-    }
+    } 
     else
     {
         // init duty cycle to 50 %
@@ -91,7 +91,7 @@ MainWindow::on_dcSlider_valueChanged ( int dc )
 void
 MainWindow::on_comboBox_currentIndexChanged ( int index )
 {
-    QMap < int, QString > :: const_iterator i = frequencyRange.constBegin ();
+    QMap < quint32, QString > :: const_iterator i = frequencyRange.constBegin ();
     switch ( index )
     {
         // puts max frequency to 1K Hz
@@ -117,10 +117,11 @@ void
 MainWindow::config ()
 {
     // sets PWM port to 35
-    this -> pwmPort = 35; 
+    const quint8 PWM_PORT = 35;
+    this -> pwmPort = PWM_PORT; 
 
     // sets port to ALT MODE-5
-    const int FSEL_ALT5 = 0b010;
+    const quint8 FSEL_ALT5 = 0b010;
     pinModeAlt ( this -> pwmPort, FSEL_ALT5 );
 
     // sets Mark/Space mode 
@@ -128,12 +129,12 @@ MainWindow::config ()
 }
 
 void
-MainWindow::pwmOutput ()
+MainWindow::pwmOutput () const
 {
     // Base frequency 19.2 MHz/
     const double FBASE = 19.2e6;
-    int range = 0;
-    int DIVISOR = 2;
+    quint32 range = 0;
+    quint8 DIVISOR = 2;
 
     if ( this -> freq == 0 )
     {
@@ -148,7 +149,7 @@ MainWindow::pwmOutput ()
     }
    
     // duty cycle = ( range * duty_cycle(%) ) / 100
-    int dutyCycle = ( range * ( this -> dutyCycleP ) ) / 100;
+    quint32 dutyCycle = ( range * ( this -> dutyCycleP ) ) / 100;
     
     // frequency = 19.2e6 / ( DIVISOR x RANGE )
     pwmSetRange ( range );

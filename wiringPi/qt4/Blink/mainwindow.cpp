@@ -2,94 +2,98 @@
 #include "ui_mainwindow.h"
 
 // constructor
-MainWindow::MainWindow ( QWidget *parent ) :
-    QMainWindow ( parent ),
-    ui ( new Ui::MainWindow )
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
-    ui -> setupUi ( this );
-    ui -> status -> setText ( " " );
+    ui->setupUi(this);
+    ui -> labelStatus -> setText ( "" );
 
-    // initiazilize timer object
+    // creates  timer
     this -> timer = new QTimer ( this );
-    
-    // output port 3
-    this -> port = 3;
-    this -> state = HIGH;
 
-    // wiringPi setup
+    // initializes port number and state
+    const quint8 PORT = 3;
+    this -> port = PORT;
+    this -> state = LOW;
+
+    // sets up wiringPi
     if ( wiringPiSetupPhys () )
     {
-        ui -> status -> setText ( "<font color='red'>Failing to setup wiringPi</font>" );
-        ui -> blinkButton -> setEnabled ( false );
+        // displays  error message
+        ui -> labelStatus -> setText ( "<font color='red'>Fail to set up WiringPi!</font>" );
+
+        // disables blink push button
+        ui -> pushButtonBlink -> setEnabled ( false );
     }
+    else
+    {
+        // configures port as output
+        pinMode ( this -> port, OUTPUT );
+        
+        //  initializes output port to LOW
+        digitalWrite ( this -> port, LOW );
 
-    // configures port as output
-    pinMode ( this -> port, OUTPUT );
-    
-    // writes 0 volts to the output port
-    digitalWrite ( this -> port, LOW );
-
-    // timer executes blink method periodically
-    connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
+        // connects timer to blink method and executes it every T seconds
+        connect ( timer, SIGNAL ( timeout () ), this, SLOT ( blink () ) );
+    }
 }
 
 // destructor
 MainWindow::~MainWindow()
 {
+    // when finish writes LOW to output port
     digitalWrite ( this -> port, LOW );
     delete ui;
 }
 
 // blink method
 void
-MainWindow::blink ()
-{ 
-    // writes to the output port
+MainWindow::blink ( void )
+{
+    // writes state to the output port
     digitalWrite ( this -> port, this -> state = !( this -> state ) );
 }
 
-// start stop method
-void
-MainWindow::on_blinkButton_clicked ()
 
+// start and stop
+void
+MainWindow::on_pushButtonBlink_clicked ()
 {
     // 100 ~ 100 ms
-    const int T = 100;
-    
-    // stop state
-    if ( this -> timer -> isActive () ) 
+    const quint16 T = 100;
+
+    // when pushes stop
+    if ( this -> timer -> isActive () )
     {
         // stops timer
         this -> timer -> stop ();
-        
-        // displays 'Start' label on blinkButton
-        ui -> blinkButton -> setText ( "Start" );
-        
-        // displays 'stop' state message
-        ui -> status -> setText ( "<font color='blue'>stop</font>" );
-        
-        // writes 0 volts to the output port
-        digitalWrite ( this -> port, LOW );
 
-        // enables quit button
-        ui -> quitButton -> setEnabled ( true );
+        // displays "stop" status message
+        ui -> labelStatus -> setText ( "stop" );
+
+        // displays "Start" label on blink button
+        ui -> pushButtonBlink -> setText ( "Start" );
+
+        // enable "Quit" button
+        ui -> pushButtonQuit -> setEnabled ( true );
+
+        // writes LOW  to the output port
+        digitalWrite ( this -> port, LOW );
     }
-    // blinking state
-    else 
+    // when pushes start
+    else
     {
         // starts timer
         this -> timer -> start ( T );
+        
+        // displays "blink" status message
+        ui -> labelStatus -> setText ( "blinking port 3" );
 
         // displays 'Stop' label on blinkButton
-        ui -> blinkButton -> setText ( "Stop" ); 
-    
-        // displays 'blinking' state message
-        QString message = "blinking port " + QString::number ( this -> port );
-        QString colour = "blue";
-        QString display  = tr ( "<font color='%1'>%2</font>" );
-        ui -> status -> setText ( display.arg ( colour, message ) );
-        
-        // disables quit button
-        ui -> quitButton -> setEnabled ( false );
+        ui -> pushButtonBlink -> setText ( "Stop" );
+
+        // disables "Quit" button
+        ui -> pushButtonQuit -> setEnabled ( false );
     }
 }

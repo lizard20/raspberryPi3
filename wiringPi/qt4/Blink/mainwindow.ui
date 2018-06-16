@@ -6,68 +6,75 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>206</height>
+    <width>377</width>
+    <height>226</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="quitButton">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>50</y>
-      <width>81</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Quit</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="blinkButton">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>50</y>
-      <width>81</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Start</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="status">
+   <widget class="QPushButton" name="pushButtonBlink">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>20</y>
-      <width>230</width>
-      <height>17</height>
+      <y>90</y>
+      <width>111</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Noto Sans Brahmi</family>
       <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonQuit">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>90</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Noto Sans Brahmi</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Quit</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelStatus">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>30</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Noto Sans Brahmi</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
@@ -76,8 +83,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>319</width>
-     <height>22</height>
+     <width>377</width>
+     <height>19</height>
     </rect>
    </property>
   </widget>
@@ -95,18 +102,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>quitButton</sender>
+   <sender>pushButtonQuit</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>297</x>
-     <y>129</y>
+     <x>275</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
-     <x>291</x>
-     <y>205</y>
+     <x>351</x>
+     <y>82</y>
     </hint>
    </hints>
   </connection>
