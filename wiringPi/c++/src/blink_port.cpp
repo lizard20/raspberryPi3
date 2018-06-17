@@ -215,8 +215,8 @@ check_port ( int phys_port, int8_t* wipi_ports, const uint8_t size )
 void
 print_message (  char* file )
 {
-    cout << "%s: missing port" << file << endl;
-    cout << "Usage: %s PIN" <<  file << endl;
-    cout << "PIN - Pin number" << endl;
+    cout <<  file << ": missisng port" << endl;
+    cout << "Usage: " <<  file << " PIN" << endl;
+    cout << "PIN - Pin number" << endl; 
 }
 
