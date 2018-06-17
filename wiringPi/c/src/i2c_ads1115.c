@@ -7,6 +7,7 @@
 
 #include<stdio.h>
 #include<inttypes.h>
+#include<wiringPi.h>
 #include<ads1115.h>
 
 /* ADS1115 address */
