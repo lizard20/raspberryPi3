@@ -1,7 +1,7 @@
 /*
 ** Program: main.cpp
-** Purpose: Read analog data using 
-**          ADS1115, 16 bits A/D converter,
+** Purpose: I2C_ads1115, reads analog data using 
+**          ADS1115, 16 bits A/D converter chip,
 **          through i2c-1 port
 ** Author:  Aldo Nunez
 */

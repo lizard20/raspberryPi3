@@ -1,6 +1,6 @@
 /**
 ** ** Program: main.cpp
-** ** Purpose: Generates a PWM signal on Pin 35
+** ** Purpose: PWM, generates a PWM signal on Pin 35
 ** **          using wiringPi library.
 ** **          To execute: $ gksudo ./PWM
 ** ** Author:  Aldo Nunez

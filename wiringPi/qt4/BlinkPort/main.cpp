@@ -1,6 +1,6 @@
 /*
 ** ** Program: main.cpp
-** ** Purpose: Blink any valid port
+** ** Purpose: BlinkPort, blinks any valid port
 ** **          using wiringPi library
 ** ** Author:  Aldo Nunez
 ** ** */

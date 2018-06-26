@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 // destructor
 MainWindow::~MainWindow()
 {
-    // when finish writes LOW to output port
+    // when finished writes LOW to output port
     digitalWrite ( this -> port, LOW );
     delete ui;
 }
@@ -63,7 +63,7 @@ MainWindow::on_pushButtonBlink_clicked ()
     // 100 ~ 100 ms
     const quint16 T = 100;
 
-    // when pushes stop
+    // if clicked stop
     if ( this -> timer -> isActive () )
     {
         // stops timer
@@ -75,13 +75,13 @@ MainWindow::on_pushButtonBlink_clicked ()
         // displays "Start" label on blink button
         ui -> pushButtonBlink -> setText ( "Start" );
 
-        // enable "Quit" button
+        // enables "Quit" button
         ui -> pushButtonQuit -> setEnabled ( true );
 
         // writes LOW  to the output port
         digitalWrite ( this -> port, LOW );
     }
-    // when pushes start
+    // if clicked start
     else
     {
         // starts timer

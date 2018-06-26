@@ -1,6 +1,6 @@
 /*
 ** ** Program: main.cpp
-** ** Purpose: Blink led conected to  Pin 3
+** ** Purpose: Blink, blinks led conected to  Pin 3
 ** **          using wiringPi library
 ** ** Author:  Aldo Nunez
 ** ** */

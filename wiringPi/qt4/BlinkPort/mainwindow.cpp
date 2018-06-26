@@ -79,7 +79,7 @@ MainWindow::on_pushButtonBlink_clicked ()
         ui -> pushButtonBlink -> setText ( "Start" );
 
         // displays 'stop' state message
-        ui -> labelStatus -> setText ( "<font color='blue'>stop</font>" );
+        ui -> labelStatus -> setText ( "stop" );
 
         // enables quitButton and portBox
         ui -> comboBoxPorts -> setEnabled ( true );
@@ -94,10 +94,7 @@ MainWindow::on_pushButtonBlink_clicked ()
         timer -> start ( T );
 
         // displays 'blinking' state message
-        QString message = "blinking port " + ui -> comboBoxPorts -> currentText ();
-        QString colour = "blue";
-        QString display  = tr ( "<font color='%1'>%2</font>" );
-        ui -> labelStatus -> setText ( display.arg ( colour, message ) );
+        ui -> labelStatus -> setText ( "blinking port " + ui -> comboBoxPorts -> currentText () );
 
         // displays 'Stop' label on blinkButton
         ui -> pushButtonBlink -> setText ( "Stop" );
