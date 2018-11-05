@@ -4,7 +4,7 @@
 # bin/ - exec files   *
 # Author: Aldo Nunez
 
-CC := g++
+CC := clang++
 FLAGS := -Wall
 LIBS := -lwiringPi
 
