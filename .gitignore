@@ -1,2 +1,4 @@
 wiringPi/c/obj/*.o
 wiringPi/c/bin/*
+wiringPi/c++/obj/*.o
+wiringPi/c++/bin/*
