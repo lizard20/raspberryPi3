@@ -161,7 +161,7 @@ write_port ( char* phys_port )
     }
 
     digitalWrite ( wpi_port, 0 );
-    delete ( wipi_ports );
+    delete []( wipi_ports );
     return true;
 }
 
