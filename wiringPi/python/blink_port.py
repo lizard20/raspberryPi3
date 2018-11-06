@@ -2,7 +2,7 @@
 
 '''
 Name:    blink_port.py
-Purpose: Blinks one of the 26 valid ports
+Purpose: Blinks one of the 28 valid ports
 Author:  Aldo Nunez
 '''
 # Import GPIO module
@@ -40,6 +40,8 @@ def  check_port ( phys_port ):
     wipi_ports [ 23 ] = 14
     wipi_ports [ 24 ] = 10
     wipi_ports [ 26 ] = 11
+    wipi_ports [ 27 ] = 30
+    wipi_ports [ 28 ] = 31
     wipi_ports [ 29 ] = 21
     wipi_ports [ 31 ] = 22
     wipi_ports [ 32 ] = 26

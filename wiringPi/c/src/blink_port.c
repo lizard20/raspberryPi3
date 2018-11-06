@@ -1,6 +1,6 @@
 /*
 ** Name:    blink_port.c
-** Purpose: Blinks one of the 26 valid ports
+** Purpose: Blinks one of the 28 valid ports
 ** Author:  Aldo Nunez
 */
 
@@ -191,7 +191,7 @@ check_port ( int phys_port, int8_t* wipi_ports,  const uint8_t size)
     }
 
     /* Valid physical pins */
-    /* [ Phys Pin ] - wirinPi PIN */
+    /* [ Phys Pin ] - wiringPi PIN */
     wipi_ports [ 3 ]  = 8;
     wipi_ports [ 5 ]  = 9;
     wipi_ports [ 7 ]  = 7;
@@ -209,6 +209,8 @@ check_port ( int phys_port, int8_t* wipi_ports,  const uint8_t size)
     wipi_ports [ 23 ] = 14;
     wipi_ports [ 24 ] = 10;
     wipi_ports [ 26 ] = 11;
+    wipi_ports [ 27 ] = 30;
+    wipi_ports [ 28 ] = 31;
     wipi_ports [ 29 ] = 21;
     wipi_ports [ 31 ] = 22;
     wipi_ports [ 32 ] = 26;

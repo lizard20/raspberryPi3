@@ -13,8 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //  list of valid ports
     this -> ports << 3  << 5  << 7  << 8  << 10 << 11 << 12 << 13 << 15;
-    this -> ports << 16 << 18 << 19 << 21 << 22 << 23 << 24 << 26 << 29;
-    this -> ports << 31 << 32 << 33 << 35 << 36 << 37 << 38 << 40;
+    this -> ports << 16 << 18 << 19 << 21 << 22 << 23 << 24 << 26 << 27;
+    this -> ports << 28 << 29 << 31 << 32 << 33 << 35 << 36 << 37 << 38 << 40;
 
     // combo box labels
     for ( int i = 0; i < ports.size (); ++i )
