@@ -140,6 +140,7 @@ write_port ( char* phys_port )
         return false;	
     }
 
+    /* delay in milliseconds */
     const int T = 50;
 
     /* setup */
