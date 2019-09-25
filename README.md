@@ -5,5 +5,5 @@ tutorial.pdf
 programs:
 wiringPi
 
-![](images/Blink.png)
+![](images/Blink.png 100x20)
 
