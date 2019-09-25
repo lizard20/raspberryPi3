@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui -> labelStatus -> setText ( "" );
+    ui -> labelStatus -> setText ( "Port 3: OFF" );
 
     // creates  timer
     this -> timer = new QTimer ( this );
@@ -70,7 +70,7 @@ MainWindow::on_pushButtonBlink_clicked ()
         this -> timer -> stop ();
 
         // displays "stop" status message
-        ui -> labelStatus -> setText ( "stop" );
+        ui -> labelStatus -> setText ( "Port 3: Stop" );
 
         // displays "Start" label on blink button
         ui -> pushButtonBlink -> setText ( "Start" );
@@ -88,7 +88,7 @@ MainWindow::on_pushButtonBlink_clicked ()
         this -> timer -> start ( T );
         
         // displays "blink" status message
-        ui -> labelStatus -> setText ( "blinking port 3" );
+        ui -> labelStatus -> setText ( "Port 3: Blinking" );
 
         // displays 'Stop' label on blinkButton
         ui -> pushButtonBlink -> setText ( "Stop" );

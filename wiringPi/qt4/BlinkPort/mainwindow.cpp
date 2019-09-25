@@ -94,7 +94,8 @@ MainWindow::on_pushButtonBlink_clicked ()
         timer -> start ( T );
 
         // displays 'blinking' state message
-        ui -> labelStatus -> setText ( "blinking port " + ui -> comboBoxPorts -> currentText () );
+//        ui -> labelStatus -> setText ( "blinking port " + ui -> comboBoxPorts -> currentText () );
+        ui -> labelStatus -> setText ( "Blinking" );
 
         // displays 'Stop' label on blinkButton
         ui -> pushButtonBlink -> setText ( "Stop" );
