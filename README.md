@@ -5,5 +5,11 @@ tutorial.pdf
 programs:
 wiringPi
 
-<img src="images/Blink.png" width="300" height=200>
+Blink:
+
+<img src="images/Blink.png" width="200" height="100">
+
+BlinkPort:
+
+<img src="images/BlinkPort.png" width="200" height="100">
 
