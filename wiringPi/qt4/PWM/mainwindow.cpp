@@ -1,42 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-// constructor
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
 {
-    ui -> setupUi(this);
-    
-    // correspondence between: frequency - string description
-    this -> frequencyRange.insert ( 1e3   , "0 - 1K Hz"   );
-    this -> frequencyRange.insert ( 10e3  , "0 - 10K Hz"  );
-    this -> frequencyRange.insert ( 100e3 , "0 - 100K Hz" );
-
-    // min frequency
-    const quint8 MINFREQ = 0;
-
-    // duty cycle max and min values
-    const quint8 MAXDC = 100;
-    const quint8 MINDC = 0;
-
-    // add frequency range items to combo box
-    QList < QString > values = frequencyRange.values ();
-    for ( quint8 i = 0; i < values.size (); ++i )
-    {
-        ui -> comboBox -> addItem ( values.at ( i ) );
-    }
-
-    // init values for frequency slider and freq display
-    ui -> freqLcd -> display ( MINFREQ );
-    ui -> freqSlider -> setMinimum ( MINFREQ );
-    QMap < quint32, QString > :: const_iterator i = frequencyRange.constBegin ();
-    ui -> freqSlider -> setMaximum ( i.key () );
-
-    // init values for ducty cycle slider and duty cycle  display
-    ui -> dcLcd -> display ( MAXDC / 2 );
-    ui -> dcSlider -> setMaximum ( MAXDC);
-    ui -> dcSlider -> setMinimum ( MINDC );
+    ui->setupUi(this);
 
     // wiringPi setup
     if ( wiringPiSetupPhys () )
@@ -46,20 +15,16 @@ MainWindow::MainWindow(QWidget *parent) :
     else
     {
         // init duty cycle to 50 %
-        this -> dutyCycleP = MAXDC / 2;
+        this -> dutyCycleP = ( ui -> dialDC ->  maximum () - 1 ) / 2;
 
         // min frequency = 0
-        this -> freq = MINFREQ;
-
-        // sets duty cycle slider to 50 %
-        ui -> dcSlider -> setValue ( this -> dutyCycleP );
+        this -> freq = 0;
 
         // config PWM port
         this -> config ();
     }
 }
 
-// destructor
 MainWindow::~MainWindow()
 {
     pwmSetRange ( 0 );
@@ -69,48 +34,93 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// slot for frequency slider
 void
-MainWindow::on_freqSlider_valueChanged ( int f )
+MainWindow::on_dialFreq_valueChanged ( int value )
 {
-    ui -> freqLcd -> display( f );
-    this ->  freq = f;
-    this -> pwmOutput ();
-}
+    /*  ********** Trick to avoid moving dial from min to max  and
+    **  viceversa */
+    static int flag = 0;
 
-// slot for duty cycle slider
-void
-MainWindow::on_dcSlider_valueChanged ( int dc ) 
-{
-    ui -> dcLcd -> display ( dc );
-    this -> dutyCycleP = dc;
-    this -> pwmOutput ();
-}
-
-// slot for frequency ranges box
-void
-MainWindow::on_comboBox_currentIndexChanged ( int index )
-{
-    QMap < quint32, QString > :: const_iterator i = frequencyRange.constBegin ();
-    switch ( index )
+    if ( value > ui -> dialFreq -> maximum () - 1 && flag == 0 )
     {
-        // puts max frequency to 1K Hz
-        case 0:
-            ui -> freqSlider -> setMaximum ( i.key () );
-            break;
-        // puts max frequency to 10K Hz
-        case 1:
-            ui -> freqSlider -> setMaximum ( ( ++i ).key () );
-            break;
-        // puts max frequency to 100K Hz
-        case 2:
-            ++i;
-            ui -> freqSlider -> setMaximum ( ( ++i ).key () );
-            break;
-        default:
-            qDebug () << "Error choosing frequency range";
-            break;
+        flag = 1;
     }
+    else if ( value < ui -> dialFreq -> maximum () - 1 && value  > ui -> dialFreq -> maximum () - 1000  && flag == 1 )
+    {
+        flag = 0;
+    }
+    else if ( value < 0 && flag == 0 )
+    {
+        flag = -1;
+    }
+    else if ( value > 0 && value < 1000 && flag == -1 )
+    {
+        flag = 0;
+    }
+
+    if ( flag == 0 )
+    {
+        ui -> lcdFreq -> display ( value );
+        this -> freq =  value;  
+    }
+    else if ( flag == 1 )
+    {
+        ui -> lcdFreq -> display ( ui -> dialFreq -> maximum() - 1 );
+        this -> freq =  ui -> dialFreq -> maximum () - 1;
+    }
+    else if ( flag == -1 ) 
+    {
+        ui -> lcdFreq -> display (  ui -> dialFreq -> minimum() + 1 );
+        this -> freq =  ui -> dialFreq -> minimum ()  + 1;  
+    }
+    /* ******************************************************/ 
+    
+    this -> pwmOutput ();
+}
+
+void
+MainWindow::on_dialDC_valueChanged ( int value )
+{
+    /*  ********** Trick to avoid moving dial from min to max  and
+    **  viceversa */
+    static int flag = 0;
+
+     if ( value > ui -> dialDC -> maximum () - 1 && flag == 0 )
+     {
+         flag = 1;
+     }
+     else if ( value < ui -> dialDC -> maximum () - 1 && value  > ui -> dialDC -> maximum () - 5  && flag == 1 )
+     {
+         flag = 0;
+     }
+     else if ( value < 0 && flag == 0 )
+     {
+         flag = -1;
+     }
+     else if ( value > 0 && value < 2 && flag == -1 )
+     {
+         flag = 0;
+     }
+
+    // display 
+    if ( flag == 0 )
+    {
+        ui -> lcdDC -> display ( value );
+        this -> dutyCycleP = value;
+    }
+    else if ( flag == 1 )
+    {
+        ui -> lcdDC -> display ( ui -> dialDC -> maximum () - 1 );
+        this -> dutyCycleP = ui -> dialDC -> maximum () - 1 ;
+    }
+    else if ( flag == -1 )
+    {
+        ui -> lcdDC -> display ( ui -> dialDC -> minimum() + 1 );
+        this -> dutyCycleP = ui -> dialDC -> minimum () + 1 ;
+    }
+    /* ******************************************************/
+
+    this -> pwmOutput ();
 }
 
 void
