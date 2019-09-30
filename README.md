@@ -8,9 +8,9 @@ wiringPi
 Blink:
 
 Program to blink Port 3
-
+<p align="center"
 <img align="center" src="images/Blink.png" width="200" height="150">
-
+</p>
 BlinkPort:
 
 Program to blink any output Port
