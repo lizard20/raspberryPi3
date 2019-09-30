@@ -1,9 +1,10 @@
 # Raspberry Pi 3
 
-tutorial.pdf
+Sample programs using wiringPi library. 
+Programs coded in c/c++, python and QT4.
 
-programs:
-wiringPi
+tutorial.pdf (in progress)
+
 
 Blink:
 
@@ -23,5 +24,5 @@ PWM
 
 Program to generate pulse modulation  wave (PWM) output on Port 35 
 <p align="center">
-<img src="images/PWM.png" width="250" height="200">
+<img src="images/PWM.png" width="350" height="300">
 </p>
