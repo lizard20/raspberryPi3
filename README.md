@@ -7,7 +7,7 @@ tutorial.pdf (in progress)
 
 Program to generate pulse modulation  wave (PWM) output on Port 35 
 <p align="center">
-<img src="images/PWM.png" width="4000" height="300">
+<img src="images/PWM.png" width="400" height="300">
 </p>
 Blink:
 
