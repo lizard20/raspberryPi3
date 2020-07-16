@@ -1,9 +1,11 @@
 # Raspberry Pi 3
 
+tutorial.pdf (in progress)
+
+install\_rasperry\_os.pf
+
 Sample programs using wiringPi library. 
 Programs coded in c/c++, python and QT4.
-
-tutorial.pdf (in progress)
 
 Program to generate pulse modulation  wave (PWM) output on Port 35 
 <p align="center">
