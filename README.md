@@ -8,6 +8,9 @@ Sample programs using wiringPi library.
 Programs coded in c/c++, python and QT4.
 
 Program to generate pulse modulation  wave (PWM) output on Port 35 
+
+PWM:
+
 <p align="center">
 <img src="images/PWM.png" width="400" height="300">
 </p>
@@ -24,6 +27,4 @@ Program to blink any output Port
 <p align="center">
 <img  src="images/BlinkPort.png" width="250" height="200">
 </p>
-
-PWM
 
