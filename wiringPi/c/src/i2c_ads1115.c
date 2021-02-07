@@ -1,6 +1,6 @@
 /*
 ** Program: i2c_ads1115.c
-** Purpose: Read analog signal using DAC
+** Purpose: Read analog signal using ADC
 **          ADS1115 through i2c port
 ** Author:  Aldo Nunez
 */
