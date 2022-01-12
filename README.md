@@ -2,7 +2,7 @@
 
 tutorial.pdf (in progress)
 
-install\_rasperry\_os.pf
+install\_rasperry\_os.pdf
 
 Sample programs using wiringPi library. 
 Programs coded in c/c++, python and QT4.
