@@ -4,6 +4,25 @@ tutorial.pdf (in progress)
 
 install\_rasperry\_os.pdf
 
+To download the code:
+
+$ git clone https://github.com/lizard20/raspberryPi3.git
+
+To compile C code
+
+$ cd raspberryPi3/wiringPi/c
+
+$ make
+
+To compile  C++ code
+
+$ cd raspberryPi3/wiringPi/c++
+
+$ make
+
+To compile QT4 code install before QT4 librarie
+
+
 Sample programs using wiringPi library. 
 Programs coded in c/c++, python and QT4.
 
